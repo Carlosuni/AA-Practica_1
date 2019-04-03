@@ -105,17 +105,6 @@ class BustersAgent:
 
 class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 	"An agent controlled by the keyboard that displays beliefs about ghost positions."
-	
-	def lineDataClass():
-		global lineData
-		lineData = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
-			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
-			str(gameState.data.agentStates[0].getDirection()) + ";" + str(gameState.getNumAgents() - 1) + ";" +\
-			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
-			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
-			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
-			str(gameState.getDistanceNearestFood()) + str(BustersAgent.getAction(self, gameState) + ";"
-		return BustersAgent.lineData
 
 	def __init__(self, index = 0, inference = "KeyboardInference", ghostAgents = None):
 		KeyboardAgent.__init__(self, index)
@@ -126,10 +115,26 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 
 	def chooseAction(self, gameState):
 		return KeyboardAgent.getAction(self, gameState)
+		
+	def variableData():
+		global lineData
+		lineData = "0;0;0;0;0;0;0;0;0;0;0;0;"
+		
+	def actData(self, gameState):
+		lineData = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
+			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
+			str(gameState.data.agentStates[0].getDirection()) + ";" + str(gameState.getNumAgents() - 1) + ";" +\
+			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
+			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
+			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + chooseAction + ";" +\
+			str(gameState.getDistanceNearestFood()) + ";"
+		return lineData
 
 	def printLineData(self, gameState, f):
 		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
-		f.write(BustersKeyboardAgent.lineDataClass() + str(gameState.getScore()))
+		x = lineData
+		f.write(x + str(gameState.getScore()))
+		actData(self, gameState)
 
 from distanceCalculator import Distancer
 from game import Actions
