@@ -115,11 +115,21 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 
 	def chooseAction(self, gameState):
 		return KeyboardAgent.getAction(self, gameState)
-		
+	
+	#Define variable global lineData que almacenará el estado de la partida del turno actual
 	def variableData():
 		global lineData
 		lineData = "0;0;0;0;0;0;0;0;0;0;0;0;"
+	
+	#Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
+	def printLineData(self, gameState, f):
+		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
+		x = lineData
+		f.write(x + str(gameState.getScore()))
+	
+	#INVOCAR "actData(self, gameState)" en la secuencia de instrucciones que ejecutan el juego, despues del print y antes de cambiar de turno!!
 		
+	#Actualiza la variable lineData con los datos del turno actual
 	def actData(self, gameState):
 		lineData = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
 			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
@@ -130,11 +140,7 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 			str(gameState.getDistanceNearestFood()) + ";"
 		return lineData
 
-	def printLineData(self, gameState, f):
-		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
-		x = lineData
-		f.write(x + str(gameState.getScore()))
-		actData(self, gameState)
+
 
 from distanceCalculator import Distancer
 from game import Actions
