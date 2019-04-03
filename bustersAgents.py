@@ -117,16 +117,15 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		return KeyboardAgent.getAction(self, gameState)
 	
 	##Define variable global lineData que almacenara el estado de la partida del turno actual
-	def variableData():
-		global lineData
-		lineData = "0;0;0;0;0;0;0;0;0;0;0;0;"
+	
+	global lineData
+	lineData = "0;0;0;0;0;0;0;0;0;0;0;0;"
 	
 	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
 	def printLineData(self, gameState, f):
 		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
-		x = lineData
-		f.write(x + str(gameState.getScore()))
-		actData(self, gameState)
+		f.write(lineData + str(gameState.getScore()))
+		BustersKeyboardAgent.actData(self, gameState)
 	
 	##INVOCAR "actData(self, gameState)" en la secuencia de instrucciones que ejecutan el juego, despues del print y antes de cambiar de turno!!
 		
@@ -138,8 +137,7 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
 			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
 			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
-			str(gameState.getDistanceNearestFood()) + chooseAction + ";"
-		return lineData
+			str(gameState.getDistanceNearestFood()) + str(BustersKeyboardAgent.chooseAction) + ";"
 
 
 
