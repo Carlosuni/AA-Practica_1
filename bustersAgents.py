@@ -126,6 +126,7 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
 		x = lineData
 		f.write(x + str(gameState.getScore()))
+		actData(self, gameState)
 	
 	##INVOCAR "actData(self, gameState)" en la secuencia de instrucciones que ejecutan el juego, despues del print y antes de cambiar de turno!!
 		
@@ -137,8 +138,7 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
 			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
 			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
-			str(gameState.getDistanceNearestFood()) + str(BustersAgent.getAction(self, gameState) + ";"
-				   
+			str(gameState.getDistanceNearestFood()) + chooseAction + ";"
 		return lineData
 
 
