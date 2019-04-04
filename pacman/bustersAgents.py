@@ -18,6 +18,7 @@ from game import Directions
 from keyboardAgents import KeyboardAgent
 import inference
 import busters
+import pandas as pd
 
 class NullGraphics:
     "Placeholder for graphics"
@@ -105,7 +106,6 @@ class BustersAgent:
 
 class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 	"An agent controlled by the keyboard that displays beliefs about ghost positions."
-
 	def __init__(self, index = 0, inference = "KeyboardInference", ghostAgents = None):
 		KeyboardAgent.__init__(self, index)
 		BustersAgent.__init__(self, index, inference, ghostAgents)
@@ -114,29 +114,71 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		return BustersAgent.getAction(self, gameState)
 
 	def chooseAction(self, gameState):
+		self.countActions = self.countActions + 1
 		return KeyboardAgent.getAction(self, gameState)
+
+	def registerInitialState(self, gameState):
+		BustersAgent.registerInitialState(self, gameState)
+		self.distancer = Distancer(gameState.data.layout, False)
+		self.countActions = 0
 	
 	##Define variable global lineData que almacenara el estado de la partida del turno actual
 	
 	##global lineDataBusters
 	lineDataBusters = ""
-	
+	pman_tick_data = pd.DataFrame(columns=['tick', 'layout_width', 'layout_height', 'pos_pman', 'legal_actions', 'dir_pman',
+										   'n_ghosts', 'n_alive_ghosts', 'pos_ghosts', 'dir_ghosts', 'dist_ghosts',
+										   'n_food', 'dist_near_food', 'action_pman', 'score', 'score_siguiente'])
+
+	''' Example of counting something'''
+	def countFood(self, gameState):
+		food = 0
+		for width in gameState.data.food:
+			for height in width:
+				if(height == True):
+					food = food + 1
+		return food
+
 	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
-	def printLineData(self, gameState, f):
-		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
-		f.write(self.lineDataBusters + str(gameState.getScore()) + "\n")
-		BustersKeyboardAgent.actData(self, gameState)
-		
+	def printLineData(self, gameState, pman_data):
+		print "--------------------- Guardando en dataframe el estado de la partida ---------------------"
+		# Actualizamos los datos del tick
+		pman_tick_data = BustersKeyboardAgent.actData(self, gameState.deepCopy())
+		# Insercion del estado en el tick actual
+		print pman_tick_data
+		pman_data.append(pman_tick_data, ignore_index=True)
+		# Insercion del score_siguiente en el estado del tick anterior
+		pman_data.loc[pman_data['tick'] == self.countActions - 1, ['score_siguiente']] = gameState.getScore()
+		return pman_data
+
+
 	##Actualiza la variable lineData con los datos del turno actual
 	def actData(self, gameState):
-		self.lineDataBusters = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
-			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
-			str(gameState.data.agentStates[0].getDirection()) + ";" + str(gameState.getNumAgents() - 1) + ";" +\
-			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
-			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
-			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
-			str(gameState.getDistanceNearestFood()) + ";" + str(BustersAgent.getAction(self, gameState)) + ";"
-		return self.lineDataBusters
+		pman_tick_data = pd.DataFrame(
+			columns=['tick', 'layout_width', 'layout_height', 'pos_pman', 'legal_actions', 'dir_pman',
+					 'n_ghosts', 'n_alive_ghosts', 'pos_ghosts', 'dir_ghosts', 'dist_ghosts',
+					 'n_food', 'dist_near_food', 'action_pman', 'score', 'score_siguiente'])
+		print self.countActions
+		pman_tick_data['tick'] = self.countActions
+		pman_tick_data['layout_width'] = gameState.data.layout.width
+		pman_tick_data['layout_height'] = gameState.data.layout.height
+		pman_tick_data['pos_pman'] = str(gameState.getPacmanPosition())
+		pman_tick_data['legal_actions'] = gameState.getLegalPacmanActions()
+		pman_tick_data['dir_pman'] = str(gameState.data.agentStates[0].getDirection())
+		pman_tick_data['n_ghosts'] = str(gameState.getNumAgents() - 1)
+		pman_tick_data['n_alive_ghosts'] = str(gameState.getLivingGhosts())
+		pman_tick_data['pos_ghosts'] = str(gameState.getGhostPositions())
+		pman_tick_data['dir_ghosts'] = str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)])
+		pman_tick_data['dist_ghosts'] = str(gameState.data.ghostDistances)
+		pman_tick_data['n_food'] = str(gameState.getNumFood())
+		pman_tick_data['dist_near_food'] = str(gameState.getDistanceNearestFood())
+		pman_tick_data['action_pman'] = str(BustersAgent.getAction(self, gameState))
+		pman_tick_data['score'] = str(gameState.getScore())
+		pman_tick_data['score_siguiente'] = 0		# Por defecto a 0, se actualiza en el siguiente tick
+
+		print pman_tick_data
+
+		return pman_tick_data
 
 
 

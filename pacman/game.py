@@ -23,6 +23,7 @@ from util import *
 import time, os
 import traceback
 import sys
+import pandas as pd
 
 #######################
 # Parts worth reading #
@@ -612,7 +613,10 @@ class Game:
         step = 0
 
         # Apertura inicial del archivo para ir guardando los estados
-        f = open("pac-man_gameState.csv", "a+")
+        f = open("pac-man_gameState.arff", "a+")
+        pman_data = pd.DataFrame(columns=['tick', 'layout_width', 'layout_height', 'pos_pman', 'legal_actions', 'dir_pman',
+                                        'n_ghosts', 'n_alive_ghosts', 'pos_ghosts', 'dir_ghosts', 'dist_ghosts',
+                                        'n_food', 'dist_near_food', 'action_pman', 'score', 'score_siguiente'])
         # f.write("map_width,map_height,pman_pos,legal_actions,pman_dir,n_ghosts,living_ghosts,ghostos_pos,ghost_dirs,ghost_dists,pac_dots,dist_near_dot,score\n")
 
 
@@ -717,7 +721,7 @@ class Game:
             # ------------------
             # PrintLineData del la info que almacenamos del estado de la partida
             if agent == self.agents[0]:
-                self.agents[0].printLineData(self.state.deepCopy(), f)
+                pman_data = self.agents[0].printLineData(self.state.deepCopy(), pman_data)
 
             # Change the display
             self.display.update( self.state.data )
@@ -734,6 +738,8 @@ class Game:
             if _BOINC_ENABLED:
                 boinc.set_fraction_done(self.getProgress())
 
+        # Ruta donde se guarda el archivo
+        pman_data.to_csv("./prueba.csv", sep=';', encoding='utf-8', index=True, header=True)
         f.close()
 
 
