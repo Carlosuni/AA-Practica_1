@@ -293,7 +293,7 @@ class BasicAgentAA(BustersAgent):
 		fantasmasVivos = gameState.getLivingGhosts()
 		fantasmasCerca = 500000
 		for i in range(0,(gameState.getNumAgents() - 1)):
-			if fantasmasVivos[i+1]==True and (distanciasFantasmas[i]<fantasmasCerca):               
+			if fantasmasVivos[i] == True and (distanciasFantasmas[i] < fantasmasCerca):
 				fantasmasCerca = distanciasFantasmas[i]
 				fantasmaCercano = i
 
