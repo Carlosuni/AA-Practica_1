@@ -105,17 +105,6 @@ class BustersAgent:
 
 class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 	"An agent controlled by the keyboard that displays beliefs about ghost positions."
-	
-	def lineDataClass():
-		global lineData
-		lineData = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
-			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
-			str(gameState.data.agentStates[0].getDirection()) + ";" + str(gameState.getNumAgents() - 1) + ";" +\
-			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
-			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
-			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
-			str(gameState.getDistanceNearestFood()) + str(BustersAgent.getAction(self, gameState) + ";"
-		return BustersAgent.lineData
 
 	def __init__(self, index = 0, inference = "KeyboardInference", ghostAgents = None):
 		KeyboardAgent.__init__(self, index)
@@ -126,10 +115,30 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 
 	def chooseAction(self, gameState):
 		return KeyboardAgent.getAction(self, gameState)
-
+	
+	##Define variable global lineData que almacenara el estado de la partida del turno actual
+	
+	##global lineDataBusters
+	lineDataBusters = ""
+	
+	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
 	def printLineData(self, gameState, f):
 		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
-		f.write(BustersKeyboardAgent.lineDataClass() + str(gameState.getScore()))
+		f.write(self.lineDataBusters + str(gameState.getScore()) + "\n")
+		BustersKeyboardAgent.actData(self, gameState)
+		
+	##Actualiza la variable lineData con los datos del turno actual
+	def actData(self, gameState):
+		self.lineDataBusters = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
+			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
+			str(gameState.data.agentStates[0].getDirection()) + ";" + str(gameState.getNumAgents() - 1) + ";" +\
+			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
+			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
+			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
+			str(gameState.getDistanceNearestFood()) + ";" + str(BustersAgent.getAction(self, gameState)) + ";"
+		return self.lineDataBusters
+
+
 
 from distanceCalculator import Distancer
 from game import Actions
@@ -219,62 +228,61 @@ class GreedyBustersAgent(BustersAgent):
 
 class BasicAgentAA(BustersAgent):
 
-    def registerInitialState(self, gameState):
-        BustersAgent.registerInitialState(self, gameState)
-        self.distancer = Distancer(gameState.data.layout, False)
-        self.countActions = 0
-        
-    ''' Example of counting something'''
-    def countFood(self, gameState):
-        food = 0
-        for width in gameState.data.food:
-            for height in width:
-                if(height == True):
-                    food = food + 1
-        return food
-    
-    ''' Print the layout'''  
-    def printGrid(self, gameState):
-        table = ""
-        #print(gameState.data.layout) ## Print by terminal
-        for x in range(gameState.data.layout.width):
-            for y in range(gameState.data.layout.height):
-                food, walls = gameState.data.food, gameState.data.layout.walls
-                table = table + gameState.data._foodWallStr(food[x][y], walls[x][y]) + ";"
-        table = table[:-1]
-        return table
+	def registerInitialState(self, gameState):
+		BustersAgent.registerInitialState(self, gameState)
+		self.distancer = Distancer(gameState.data.layout, False)
+		self.countActions = 0
 
-    def printInfo(self, gameState):
-        print "---------------- TICK ", self.countActions, " --------------------------"
-        # Dimensiones del mapa
-        width, height = gameState.data.layout.width, gameState.data.layout.height
-        print "Width: ", width, " Height: ", height
+	''' Example of counting something'''
+	def countFood(self, gameState):
+		food = 0
+		for width in gameState.data.food:
+			for height in width:
+				if(height == True):
+					food = food + 1
+		return food
+    
+	''' Print the layout'''  
+	def printGrid(self, gameState):
+		table = ""
+		#print(gameState.data.layout) ## Print by terminal
+		for x in range(gameState.data.layout.width):
+			for y in range(gameState.data.layout.height):
+				food, walls = gameState.data.food, gameState.data.layout.walls
+				table = table + gameState.data._foodWallStr(food[x][y], walls[x][y]) + ";"
+		table = table[:-1]
+		return table
+
+	def printInfo(self, gameState):
+		print "---------------- TICK ", self.countActions, " --------------------------"
+		# Dimensiones del mapa
+		width, height = gameState.data.layout.width, gameState.data.layout.height
+		print "Width: ", width, " Height: ", height
         # Posicion del Pacman
-        print "Pacman position: ", gameState.getPacmanPosition()
+		print "Pacman position: ", gameState.getPacmanPosition()
         # Acciones legales de pacman en la posicion actual
-        print "Legal actions: ", gameState.getLegalPacmanActions()
+		print "Legal actions: ", gameState.getLegalPacmanActions()
         # Direccion de pacman
-        print "Pacman direction: ", gameState.data.agentStates[0].getDirection()
+		print "Pacman direction: ", gameState.data.agentStates[0].getDirection()
         # Numero de fantasmas
-        print "Number of ghosts: ", gameState.getNumAgents() - 1
+		print "Number of ghosts: ", gameState.getNumAgents() - 1
         # Fantasmas que estan vivos (el indice 0 del array que se devuelve corresponde a pacman y siempre es false)
-        print "Living ghosts: ", gameState.getLivingGhosts()
+		print "Living ghosts: ", gameState.getLivingGhosts()
         # Posicion de los fantasmas
-        print "Ghosts positions: ", gameState.getGhostPositions()
+		print "Ghosts positions: ", gameState.getGhostPositions()
         # Direciones de los fantasmas
-        print "Ghosts directions: ", [gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]
+		print "Ghosts directions: ", [gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]
         # Distancia de manhattan a los fantasmas
-        print "Ghosts distances: ", gameState.data.ghostDistances
+		print "Ghosts distances: ", gameState.data.ghostDistances
         # Puntos de comida restantes
-        print "Pac dots: ", gameState.getNumFood()
+		print "Pac dots: ", gameState.getNumFood()
         # Distancia de manhattan a la comida mas cercada
-        print "Distance nearest pac dots: ", gameState.getDistanceNearestFood()
+		print "Distance nearest pac dots: ", gameState.getDistanceNearestFood()
         # Paredes del mapa
-        print "Map:  \n", gameState.getWalls()
-        # Puntuacion
-        print "Score: ", gameState.getScore()
-        
-        
+		print "Map:  \n", gameState.getWalls()
+         # Puntuacion
+		print "Score: ", gameState.getScore()
+
 	def chooseAction(self, gameState):
 		self.countActions = self.countActions + 1
 		self.printInfo(gameState)
@@ -298,27 +306,48 @@ class BasicAgentAA(BustersAgent):
 		y = posicionesPacman[1]
 
 		if xf > x and yf > y and xf < yf and Directions.NORTH in legal: move = Directions.NORTH
+		##if xf > x and yf > y and xf < yf and Directions.NORTH not in legal and Directions.EAST in legal: move = Directions.EAST
 		if xf > x and yf >= y and xf > yf and Directions.EAST in legal: move = Directions.EAST
+		##if xf > x and yf >= y and xf > yf and Directions.EAST not in legal and Directions.NORTH in legal: move = Directions.NORTH
 		if xf > x and yf < y and xf < yf and Directions.EAST in legal: move = Directions.EAST
+		##if xf > x and yf < y and xf < yf and Directions.EAST not in legal and Directions.SOUTH in legal: move = Directions.SOUTH
 		if xf > x and yf <= y and xf > yf and Directions.SOUTH in legal: move = Directions.SOUTH
+		##if xf > x and yf <= y and xf > yf and Directions.SOUTH not in legal and Directions.EAST in legal: move = Directions.EAST
 		if xf < x and yf < y and xf < yf and Directions.SOUTH in legal: move = Directions.SOUTH
+		##if xf < x and yf < y and xf < yf and Directions.SOUTH not in legal and Directions.WEST in legal: move = Directions.WEST
 		if xf < x and yf <= y and xf > yf and Directions.WEST in legal: move = Directions.WEST
+		##if xf < x and yf <= y and xf > yf and Directions.WEST not in legal and Directions.SOUTH in legal: move = Directions.SOUTH
 		if xf < x and yf > y and xf < yf and Directions.WEST in legal: move = Directions.WEST
+		##if xf < x and yf > y and xf < yf and Directions.WEST not in legal and Directions.NORTH in legal: move = Directions.NORTH
 		if xf < x and yf >= y and xf > yf and Directions.NORTH in legal: move = Directions.NORTH
+		##if xf < x and yf >= y and xf > yf and Directions.NORTH not in legal and Directions.WEST in legal: move = Directions.WEST
 		if xf == yf and xf > x and Directions.EAST in legal: move = Directions.EAST
 		if xf == yf and xf < x and Directions.WEST in legal: move = Directions.WEST
-	
-		if Directions.NORTH not in legal or Directions.EAST not in legal or Directions.WEST not in legal or Directions.SOUTH not in legal:
+		#caso tunel
+		if Directions.NORTH not in legal or Directions.EAST in legal or Directions.SOUTH in legal or Directions.WEST in legal:
 			move_random = random.randint(0, 3)
 			if(move_random == 0) and Directions.WEST in legal: move = Directions.WEST
 			if(move_random == 1) and Directions.EAST in legal: move = Directions.EAST
 			if(move_random == 2) and Directions.NORTH in legal: move = Directions.NORTH
 			if(move_random == 3) and Directions.SOUTH in legal: move = Directions.SOUTH
-
+			
 		return move
 
-    # Guardado de info de la partida en csv
-    def printLineData(self, gameState, f):
-        print "--------------------- Guardando en .csv el estado de la partida ---------------------"
+	lineDataAA = ""
 
-        f.write(lineData + str(gameState.getScore()))
+	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
+	def printLineData(self, gameState, f):
+		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
+		f.write(self.lineDataAA + str(gameState.getScore()) + "\n")
+		BasicAgentAA.actData(self, gameState)
+		
+	##Actualiza la variable lineData con los datos del turno actual
+	def actData(self, gameState):
+		self.lineDataAA = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
+			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
+			str(gameState.data.agentStates[0].getDirection()) + ";" + str(gameState.getNumAgents() - 1) + ";" +\
+			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
+			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
+			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
+			str(gameState.getDistanceNearestFood()) + ";" + str(BustersAgent.getAction(self, gameState)) + ";"
+		return self.lineDataAA
