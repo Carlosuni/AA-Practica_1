@@ -115,6 +115,11 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 
 	def chooseAction(self, gameState):
 		return KeyboardAgent.getAction(self, gameState)
+
+	def registerInitialState(self, gameState):
+		BustersAgent.registerInitialState(self, gameState)
+		self.distancer = Distancer(gameState.data.layout, False)
+		self.countActions = 0
 	
 	##Define variable global lineData que almacenara el estado de la partida del turno actual
 	
@@ -123,8 +128,11 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 	
 	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
 	def printLineData(self, gameState, f):
+		self.countActions = self.countActions + 1
 		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
-		f.write(self.lineDataBusters + str(gameState.getScore()) + "\n")
+		if self.countActions > 1:
+			added_line = self.lineDataBusters + str(gameState.getScore()) + "\n"
+			f.write(added_line)
 		BustersKeyboardAgent.actData(self, gameState)
 		
 	##Actualiza la variable lineData con los datos del turno actual

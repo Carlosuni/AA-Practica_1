@@ -612,9 +612,37 @@ class Game:
         step = 0
 
         # Apertura inicial del archivo para ir guardando los estados
-        f = open("pac-man_gameState.csv", "a+")
-        # f.write("map_width,map_height,pman_pos,legal_actions,pman_dir,n_ghosts,living_ghosts,ghostos_pos,ghost_dirs,ghost_dists,pac_dots,dist_near_dot,score\n")
 
+        f = open("pac-man_gameState.csv", "a+")
+        file_lines = 0
+        for l in f:
+            file_lines = file_lines + 1
+        f.close()
+
+
+        print "Lines = " + str(file_lines)
+        if file_lines == 0:
+            f = open("pac-man_gameState.csv", "a+")
+            fileHeader = "@relation pac-man\n\n" \
+                         "@attribute width NUMERIC\n" \
+                         "@attribute height NUMERIC\n" \
+                         "@attribute pacmanPosition NUMERIC\n" \
+                         "@attribute legalPacmanActions NUMERIC\n" \
+                         "@attribute direction NUMERIC\n" \
+                         "@attribute numAgents NUMERIC\n" \
+                         "@attribute livingGhosts NUMERIC\n" \
+                         "@attribute ghostPositions NUMERIC\n" \
+                         "@attribute ghostDirections NUMERIC\n" \
+                         "@attribute ghostDistances NUMERIC\n" \
+                         "@attribute numFood NUMERIC\n" \
+                         "@attribute nearestFood NUMERIC\n" \
+                         "@attribute action {0,1,2,3,4}\n" \
+                         "\n@attribute score NUMERIC\n\n" \
+                         "@data\n"
+            f.write(fileHeader)
+            f.close()
+
+        f = open("pac-man_gameState.csv", "a+")
 
         while not self.gameOver:
             # Fetch the next agent
