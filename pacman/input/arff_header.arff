@@ -38,6 +38,4 @@
 @attribute scoreSiguiente NUMERIC
 @attribute action {Stop,West,East,North,South}
 
-
 @data
-
