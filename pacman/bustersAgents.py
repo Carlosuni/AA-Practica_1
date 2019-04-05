@@ -123,7 +123,22 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 	##Define variable global lineData que almacenara el estado de la partida del turno actual
 	
 	##global lineDataBusters
-	lineDataBusters = ""
+	lineDataBusters = "@relation pac-man\n" \
+                      "\n@attribute width NUMERIC" \
+                      "\n@attribute height NUMERIC" \
+                      "\n@attribute pacmanPosition NUMERIC" \
+                      "\n@attribute legalPacmanActions NUMERIC" \
+                      "\n@attribute direction NUMERIC" \
+                      "\n@attribute numAgents NUMERIC" \
+                      "\n@attribute livingGhosts NUMERIC" \
+                      "\n@attribute ghostPositions NUMERIC" \
+                      "\n@attribute ghostDirections NUMERIC" \
+                      "\n@attribute ghostDistances NUMERIC" \
+                      "\n@attribute numFood NUMERIC" \
+                      "\n@attribute nearestFood NUMERIC" \
+                      "\n@attribute action {0,1,2,3,4}" \
+                      "\n@attribute score NUMERIC\n" \
+                      "\n@data\n"
 	
 	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
 	def printLineData(self, gameState, f):
