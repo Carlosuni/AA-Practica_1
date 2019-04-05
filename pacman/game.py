@@ -613,36 +613,58 @@ class Game:
 
         # Apertura inicial del archivo para ir guardando los estados
 
-        f = open("pac-man_gameState.csv", "a+")
-        file_lines = 0
-        for l in f:
-            file_lines = file_lines + 1
-        f.close()
-
-
-        print "Lines = " + str(file_lines)
-        if file_lines == 0:
-            f = open("pac-man_gameState.csv", "a+")
-            fileHeader = "@relation pac-man\n\n" \
-                         "@attribute ronda_tick NUMERIC\n" \
-                         "@attribute width NUMERIC\n" \
-                         "@attribute height NUMERIC\n" \
-                         "@attribute pmanPosX NUMERIC\n" \
-                         "@attribute pmanPosY NUMERIC\n" \
-                         "@attribute legalPacmanActions NUMERIC\n" \
-                         "@attribute direction NUMERIC\n" \
-                         "@attribute numAgents NUMERIC\n" \
-                         "@attribute livingGhosts NUMERIC\n" \
-                         "@attribute ghostPositions NUMERIC\n" \
-                         "@attribute ghostDirections NUMERIC\n" \
-                         "@attribute ghostDistances NUMERIC\n" \
-                         "@attribute numFood NUMERIC\n" \
-                         "@attribute nearestFood NUMERIC\n" \
-                         "@attribute action {0,1,2,3,4}\n" \
-                         "\n@attribute score NUMERIC\n\n" \
-                         "@data\n"
-            f.write(fileHeader)
-            f.close()
+        # f = open("pac-man_gameState.csv", "a+")
+        # file_lines = 0
+        # for l in f:
+        #     file_lines = file_lines + 1
+        # f.close()
+        #
+        #
+        # print "Lines = " + str(file_lines)
+        # if file_lines == 0:
+        #     f = open("pac-man_gameState.csv", "a+")
+        #     fileHeader = "@relation pac-man\n\n" \
+        #                  "@attribute ronda_tick NUMERIC\n" \
+        #                  "@attribute width NUMERIC\n" \
+        #                  "@attribute height NUMERIC\n" \
+        #                  "@attribute pmanPosX NUMERIC\n" \
+        #                  "@attribute pmanPosY NUMERIC\n" \
+        #                  "@attribute legalWest {None, West}\n" \
+        #                  "@attribute legalStop {None, Stop}\n"\
+        #                  "@attribute legalEast {None, East}\n" \
+        #                  "@attribute legalNorth {None, North}\n" \
+        #                  "@attribute legalSouth {None, South}\n" \
+        #                  "@attribute direction NUMERIC\n" \
+        #                  "@attribute numAgents NUMERIC\n" \
+        #                  "@attribute livingG_0 {True,False}\n" \
+        #                  "@attribute livingG_1 {True,False}\n" \
+        #                  "@attribute livingG_2 {True,False}\n"\
+        #                  "@attribute livingG_3 {True,False}\n" \
+        #                  "@attribute livingG_4 {True,False}\n" \
+        #                  "@attribute g1posX NUMERIC\n" \
+        #                  "@attribute g1posY NUMERIC\n"\
+        #                  "@attribute g2posX NUMERIC\n" \
+        #                  "@attribute g2posY NUMERIC\n" \
+        #                  "@attribute g3posX NUMERIC\n" \
+        #                  "@attribute g3posY NUMERIC\n" \
+        #                  "@attribute g4posX NUMERIC\n" \
+        #                  "@attribute g4posY NUMERIC\n" \
+        #                  "@attribute g1dir {Stop,West,East,North,South}\n" \
+        #                  "@attribute g2dir {Stop,West,East,North,South}\n"\
+        #                  "@attribute g3dir {Stop,West,East,North,South}\n" \
+        #                  "@attribute g4dir {Stop,West,East,North,South}\n" \
+        #                  "@attribute g1dist NUMERIC\n" \
+        #                  "@attribute g2dist NUMERIC\n"\
+        #                  "@attribute g3dist NUMERIC\n" \
+        #                  "@attribute g4dist NUMERIC\n" \
+        #                  "@attribute numFood NUMERIC\n" \
+        #                  "@attribute nearestFood NUMERIC\n" \
+        #                  "@attribute score NUMERIC\n" \
+        #                  "@attribute action {Stop,West,East,North,South}\n" \
+        #                  "\n@attribute scoreSiguiente NUMERIC\n\n" \
+        #                  "@data\n"
+        #     f.write(fileHeader)
+        #     f.close()
 
         f = open("pac-man_gameState.csv", "a+")
 

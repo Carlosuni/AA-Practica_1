@@ -1,0 +1,43 @@
+@relation pac-man
+@attribute ronda_tick NUMERIC
+@attribute width NUMERIC
+@attribute height NUMERIC
+@attribute pmanPosX NUMERIC
+@attribute pmanPosY NUMERIC
+@attribute legalWest {None, West}
+@attribute legalStop {None, Stop}
+@attribute legalEast {None, East}
+@attribute legalNorth {None, North}
+@attribute legalSouth {None, South}
+@attribute direction {Stop,West,East,North,South}
+@attribute numAgents NUMERIC
+@attribute livingG_0 {True,False}
+@attribute livingG_1 {True,False}
+@attribute livingG_2 {True,False}
+@attribute livingG_3 {True,False}
+@attribute livingG_4 {True,False}
+@attribute g1posX NUMERIC
+@attribute g1posY NUMERIC
+@attribute g2posX NUMERIC
+@attribute g2posY NUMERIC
+@attribute g3posX NUMERIC
+@attribute g3posY NUMERIC
+@attribute g4posX NUMERIC
+@attribute g4posY NUMERIC
+@attribute g1dir {Stop,West,East,North,South}
+@attribute g2dir {Stop,West,East,North,South}
+@attribute g3dir {Stop,West,East,North,South}
+@attribute g4dir {Stop,West,East,North,South}
+@attribute g1dist NUMERIC
+@attribute g2dist NUMERIC
+@attribute g3dist NUMERIC
+@attribute g4dist NUMERIC
+@attribute numFood NUMERIC
+@attribute nearestFood NUMERIC
+@attribute score NUMERIC
+@attribute scoreSiguiente NUMERIC
+@attribute action {Stop,West,East,North,South}
+
+
+@data
+

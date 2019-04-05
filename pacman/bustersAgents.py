@@ -111,6 +111,7 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		BustersAgent.__init__(self, index, inference, ghostAgents)
 
 	def getAction(self, gameState):
+		self.keyboard_action = BustersAgent.getAction(self, gameState)
 		return BustersAgent.getAction(self, gameState)
 
 	def chooseAction(self, gameState):
@@ -128,12 +129,33 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		self.countActions = self.countActions + 1
 		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
 		if self.countActions > 1:
-			added_line = self.lineDataBusters + str(gameState.getScore()) + "\n"
+			added_line = self.lineDataBusters + str(self.keyboard_action) + "," + str(gameState.getScore()) + "\n"
 			f.write(added_line)
 		BustersKeyboardAgent.actData(self, gameState)
 		
 	##Actualiza la variable lineData con los datos del turno actual
 	def actData(self, gameState):
+		dir_actual = str(gameState.data.agentStates[0].getDirection())
+		if dir_actual == None:
+			dir_actual = "None"
+
+		comida_cercana = str(gameState.getDistanceNearestFood())
+		if comida_cercana== "None":
+			comida_cercana = -1
+
+		dist_g1 = str(gameState.data.ghostDistances[0])
+		if dist_g1 == "None":
+			dist_g1 = -1
+		dist_g2 = str(gameState.data.ghostDistances[0])
+		if dist_g2 == "None":
+			dist_g2 = -1
+		dist_g3 = str(gameState.data.ghostDistances[0])
+		if dist_g3 == "None":
+			dist_g3 = -1
+		dist_g4 = str(gameState.data.ghostDistances[0])
+		if dist_g4 == "None":
+			dist_g4 = -1
+
 		accionesLegales = ""
 		cont = 0
 		for i in range(len(gameState.getLegalPacmanActions())):
@@ -157,14 +179,13 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 
 		# accionesLegales = str(gameState.getLegalPacmanActions())
 		self.lineDataBusters = str(self.countActions) + "," + str(gameState.data.layout.width) + "," + str(gameState.data.layout.height) + "," + \
-							   str(gameState.getPacmanPosition()[0]) + "," + str(gameState.getPacmanPosition()[1]) + "," + accionesLegales + \
-							   str(gameState.data.agentStates[0].getDirection()) + "," + str(
+							   str(gameState.getPacmanPosition()[0]) + "," + str(gameState.getPacmanPosition()[1]) + "," + str(accionesLegales) + \
+							   dir_actual + "," + str(
 			gameState.getNumAgents() - 1) + "," + \
-							   str(gameState.getLivingGhosts()) + "," + str(gameState.getGhostPositions()) + "," + \
-							   str([gameState.getGhostDirections().get(i) for i in
-									range(0, gameState.getNumAgents() - 1)]) + "," + \
-							   str(gameState.data.ghostDistances) + "," + str(gameState.getNumFood()) + "," + \
-							   str(gameState.getDistanceNearestFood()) + ","
+							   str(gameState.getLivingGhosts()[0]) + "," + str(gameState.getLivingGhosts()[1]) + "," + str(gameState.getLivingGhosts()[2]) + "," + str(gameState.getLivingGhosts()[3]) + "," + str(gameState.getLivingGhosts()[4]) + "," + str(gameState.getGhostPositions()[0][0]) + "," + str(gameState.getGhostPositions()[0][1]) + "," + str(gameState.getGhostPositions()[1][0]) + "," + str(gameState.getGhostPositions()[1][1]) + "," + str(gameState.getGhostPositions()[2][0]) + "," + str(gameState.getGhostPositions()[2][1]) + "," + str(gameState.getGhostPositions()[3][0]) + "," + str(gameState.getGhostPositions()[3][1]) + "," + \
+							   str(gameState.getGhostDirections().get(0)) + "," + str(gameState.getGhostDirections().get(1)) + "," + str(gameState.getGhostDirections().get(2)) + "," + str(gameState.getGhostDirections().get(3)) + "," + \
+							   str(dist_g1) + "," + str(dist_g2) + "," + str(dist_g3) + "," + str(dist_g4) + "," + str(gameState.getNumFood()) + "," + \
+							   str(comida_cercana) + "," + str(gameState.getScore()) + ","
 		return self.lineDataBusters
 
 
