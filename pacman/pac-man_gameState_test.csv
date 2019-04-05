@@ -1,0 +1,54 @@
+@relation pac-man
+
+@attribute ronda_tick NUMERIC
+@attribute width NUMERIC
+@attribute height NUMERIC
+@attribute pmanPosX NUMERIC
+@attribute pmanPosY NUMERIC
+@attribute legalPacmanActions NUMERIC
+@attribute direction NUMERIC
+@attribute numAgents NUMERIC
+@attribute livingGhosts NUMERIC
+@attribute ghostPositions NUMERIC
+@attribute ghostDirections NUMERIC
+@attribute ghostDistances NUMERIC
+@attribute numFood NUMERIC
+@attribute nearestFood NUMERIC
+@attribute action {0,1,2,3,4}
+
+@attribute score NUMERIC
+
+@data
+1,20,16,12,10,West,Stop,East,North,South,Stop,4,[False, True, True, True, True],[(5, 6), (5, 12), (13, 6), (13, 12)],['Stop', 'Stop', 'Stop', 'Stop'],[11, 9, 5, 3],1,7,-2
+2,20,16,12,11,West,Stop,East,North,South,North,4,[False, True, True, True, True],[(5, 5), (5, 13), (12, 6), (13, 12)],['South', 'North', 'West', 'Stop'],[13, 9, 5, 2],1,8,-3
+3,20,16,12,12,West,Stop,East,North,South,North,4,[False, True, True, True, True],[(5, 6), (5, 12), (12, 6), (13, 11)],['North', 'South', 'West', 'South'],[13, 7, 6, 2],1,9,-4
+4,20,16,12,13,West,Stop,East,North,South,North,4,[False, True, True, True, True],[(5, 7), (4, 12), (12, 7), (13, 11)],['North', 'West', 'North', 'South'],[13, 9, 6, 3],1,10,-5
+5,20,16,12,14,West,Stop,East,None,South,North,4,[False, True, True, True, True],[(6, 7), (4, 12), (13, 7), (13, 11)],['East', 'West', 'East', 'South'],[13, 10, 8, 4],1,11,-6
+6,20,16,13,14,West,Stop,East,None,South,East,4,[False, True, True, True, True],[(6, 7), (4, 12), (13, 6), (13, 11)],['East', 'West', 'South', 'South'],[14, 11, 8, 3],1,10,-7
+7,20,16,14,14,West,Stop,East,None,South,East,4,[False, True, True, True, True],[(6, 8), (4, 13), (14, 6), (12, 11)],['North', 'North', 'East', 'West'],[14, 11, 8, 5],1,9,-8
+8,20,16,14,13,West,Stop,East,North,South,South,4,[False, True, True, True, True],[(5, 8), (5, 13), (13, 6), (13, 11)],['West', 'East', 'West', 'East'],[14, 9, 8, 3],1,8,-9
+9,20,16,13,13,West,Stop,East,North,South,West,4,[False, True, True, True, True],[(5, 9), (5, 13), (13, 7), (13, 11)],['North', 'East', 'North', 'East'],[12, 8, 6, 2],1,9,-10
+10,20,16,13,12,West,Stop,East,North,South,South,4,[False, True, True, True, True],[(5, 9), (5, 14), (14, 7), (13, 10)],['North', 'North', 'East', 'South'],[11, 10, 6, 2],1,8,189
+11,20,16,13,11,West,Stop,East,North,South,South,4,[False, True, True, True, False],[(5, 8), (5, 14), (15, 7), (13, 11)],['South', 'North', 'East', 'Stop'],[11, 11, 6, None],1,7,188
+12,20,16,13,10,West,Stop,East,North,South,South,4,[False, True, True, True, False],[(5, 9), (4, 14), (15, 8), (7, 1)],['North', 'West', 'North', 'Stop'],[9, 13, 4, None],1,6,187
+13,20,16,14,10,West,Stop,East,North,South,East,4,[False, True, True, True, False],[(5, 8), (4, 13), (14, 8), (7, 1)],['South', 'South', 'West', 'Stop'],[11, 13, 2, None],1,5,186
+14,20,16,14,9,West,Stop,East,North,South,South,4,[False, True, True, True, False],[(6, 8), (4, 14), (13, 8), (7, 1)],['East', 'North', 'West', 'Stop'],[9, 15, 2, None],1,4,185
+15,20,16,13,9,West,Stop,East,North,South,West,4,[False, True, True, True, False],[(5, 8), (4, 13), (13, 8), (7, 1)],['West', 'South', 'West', 'Stop'],[9, 13, 1, None],1,5,384
+16,20,16,13,8,West,Stop,East,North,South,South,4,[False, True, True, False, False],[(5, 8), (3, 13), (5, 1), (7, 1)],['West', 'West', 'Stop', 'Stop'],[8, 15, None, None],1,6,383
+17,20,16,12,8,West,Stop,East,North,South,West,4,[False, True, True, False, False],[(6, 8), (3, 14), (5, 1), (7, 1)],['East', 'North', 'Stop', 'Stop'],[6, 15, None, None],1,7,382
+18,20,16,11,8,West,Stop,East,North,South,West,4,[False, True, True, False, False],[(7, 8), (3, 14), (5, 1), (7, 1)],['East', 'North', 'Stop', 'Stop'],[4, 14, None, None],1,8,381
+19,20,16,10,8,West,Stop,East,North,South,West,4,[False, True, True, False, False],[(6, 8), (4, 14), (5, 1), (7, 1)],['West', 'East', 'Stop', 'Stop'],[4, 12, None, None],1,9,380
+20,20,16,9,8,West,Stop,East,North,South,West,4,[False, True, True, False, False],[(7, 8), (3, 14), (5, 1), (7, 1)],['East', 'West', 'Stop', 'Stop'],[2, 12, None, None],1,10,379
+21,20,16,8,8,West,Stop,East,North,South,West,4,[False, True, True, False, False],[(6, 8), (2, 14), (5, 1), (7, 1)],['West', 'West', 'Stop', 'Stop'],[2, 12, None, None],1,11,378
+22,20,16,7,8,West,Stop,East,North,South,West,4,[False, True, True, False, False],[(6, 9), (3, 14), (5, 1), (7, 1)],['North', 'East', 'Stop', 'Stop'],[2, 10, None, None],1,12,577
+23,20,16,7,9,West,Stop,East,North,South,North,4,[False, False, True, False, False],[(7, 9), (4, 14), (5, 1), (7, 1)],['Stop', 'East', 'Stop', 'Stop'],[None, 8, None, None],1,11,576
+24,20,16,7,10,West,Stop,East,North,South,North,4,[False, False, True, False, False],[(1, 1), (4, 13), (5, 1), (7, 1)],['Stop', 'South', 'Stop', 'Stop'],[None, 6, None, None],1,12,575
+25,20,16,7,11,West,Stop,East,North,South,North,4,[False, False, True, False, False],[(1, 1), (5, 13), (5, 1), (7, 1)],['Stop', 'East', 'Stop', 'Stop'],[None, 4, None, None],1,13,574
+26,20,16,7,12,West,Stop,East,North,South,North,4,[False, False, True, False, False],[(1, 1), (5, 12), (5, 1), (7, 1)],['Stop', 'South', 'Stop', 'Stop'],[None, 2, None, None],1,14,773
+1,20,16,12,10,['West', 'Stop', 'East', 'North', 'South']Stop,4,[False, True, True, True, True],[(5, 6), (5, 12), (13, 6), (13, 12)],['Stop', 'Stop', 'Stop', 'Stop'],[11, 9, 5, 3],1,7,-2
+2,20,16,12,11,['West', 'Stop', 'East', 'North', 'South']North,4,[False, True, True, True, True],[(5, 5), (6, 12), (13, 7), (13, 13)],['South', 'East', 'North', 'North'],[13, 7, 5, 3],1,8,-3
+3,20,16,12,12,['West', 'Stop', 'East', 'North', 'South']North,4,[False, True, True, True, True],[(5, 4), (6, 11), (13, 8), (13, 13)],['South', 'South', 'North', 'North'],[15, 7, 5, 2],1,9,-4
+4,20,16,12,13,['West', 'Stop', 'East', 'North', 'South']North,4,[False, True, True, True, True],[(5, 3), (6, 10), (13, 8), (13, 14)],['South', 'South', 'North', 'North'],[17, 9, 6, 2],1,10,-5
+5,20,16,13,13,['West', 'Stop', 'East', 'North', 'South']East,4,[False, True, True, True, True],[(4, 3), (6, 10), (12, 8), (12, 14)],['West', 'South', 'West', 'West'],[19, 10, 6, 2],1,9,-6
+6,20,16,14,13,['West', 'Stop', 'East', 'North', 'South']East,4,[False, True, True, True, True],[(4, 3), (6, 9), (12, 8), (12, 14)],['West', 'South', 'West', 'West'],[20, 12, 7, 3],1,8,-7
+7,20,16,15,13,['West', 'Stop', 'East', 'North', 'South']East,4,[False, True, True, True, True],[(5, 3), (6, 9), (12, 8), (12, 13)],['East', 'South', 'West', 'South'],[20, 13, 8, 3],1,7,-8

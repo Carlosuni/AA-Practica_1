@@ -624,6 +624,7 @@ class Game:
         if file_lines == 0:
             f = open("pac-man_gameState.csv", "a+")
             fileHeader = "@relation pac-man\n\n" \
+                         "@attribute ronda_tick NUMERIC\n" \
                          "@attribute width NUMERIC\n" \
                          "@attribute height NUMERIC\n" \
                          "@attribute pmanPosX NUMERIC\n" \
