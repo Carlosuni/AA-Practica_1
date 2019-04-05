@@ -117,8 +117,6 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		return KeyboardAgent.getAction(self, gameState)
 
 	def registerInitialState(self, gameState):
-		BustersAgent.registerInitialState(self, gameState)
-		self.distancer = Distancer(gameState.data.layout, False)
 		self.countActions = 0
 	
 	##Define variable global lineData que almacenara el estado de la partida del turno actual
@@ -137,13 +135,13 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		
 	##Actualiza la variable lineData con los datos del turno actual
 	def actData(self, gameState):
-		self.lineDataBusters = str(gameState.data.layout.width) + ";" + str(gameState.data.layout.height) + ";" +\
-			str(gameState.getPacmanPosition()) + ";" + str(gameState.getLegalPacmanActions()) + ";" +\
-			str(gameState.data.agentStates[0].getDirection()) + ";" + str(gameState.getNumAgents() - 1) + ";" +\
-			str(gameState.getLivingGhosts()) + ";" + str(gameState.getGhostPositions()) + ";" + \
-			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + ";" +\
-			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
-			str(gameState.getDistanceNearestFood()) + ";" + str(BustersAgent.getAction(self, gameState)) + ";"
+		self.lineDataBusters = str(gameState.data.layout.width) + "," + str(gameState.data.layout.height) + "," +\
+			str(gameState.getPacmanPosition()[0]) + "," + str(gameState.getPacmanPosition()[1]) + "," + str(gameState.getLegalPacmanActions()[0]) + "," + str(gameState.getLegalPacmanActions()[1]) + "," + str(gameState.getLegalPacmanActions()[2]) + "," + str(gameState.getLegalPacmanActions()[3]) + "," + str(gameState.getLegalPacmanActions()[4]) + "," +\
+			str(gameState.data.agentStates[0].getDirection()) + "," + str(gameState.getNumAgents() - 1) + "," +\
+			str(gameState.getLivingGhosts()) + "," + str(gameState.getGhostPositions()) + "," + \
+			str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]) + "," +\
+			str(gameState.data.ghostDistances) + "," + str(gameState.getNumFood()) + "," +\
+			str(gameState.getDistanceNearestFood()) + "," + str(BustersAgent.getAction(self, gameState)) + ","
 		return self.lineDataBusters
 
 

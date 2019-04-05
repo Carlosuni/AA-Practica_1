@@ -626,7 +626,8 @@ class Game:
             fileHeader = "@relation pac-man\n\n" \
                          "@attribute width NUMERIC\n" \
                          "@attribute height NUMERIC\n" \
-                         "@attribute pacmanPosition NUMERIC\n" \
+                         "@attribute pmanPosX NUMERIC\n" \
+                         "@attribute pmanPosY NUMERIC\n" \
                          "@attribute legalPacmanActions NUMERIC\n" \
                          "@attribute direction NUMERIC\n" \
                          "@attribute numAgents NUMERIC\n" \
