@@ -25,7 +25,7 @@ REM python busters.py -l trickyClassic
 REM python busters.py -g RandomGhost -l 20Hunt
 REM AUTOMATICO
 REM Train:
-REM python busters.py -p BasicAgentAA -l bigHunt
+python busters.py -p BasicAgentAA -l bigHunt
 REM python busters.py -p BasicAgentAA -g RandomGhost -l originalClassic
 REM python busters.py -p BasicAgentAA -l customCatedral
 REM python busters.py -p BasicAgentAA -g RandomGhost -l bigHunt
