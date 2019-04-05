@@ -2,6 +2,7 @@
 
 @attribute Key_Dataset string
 @attribute Key_Run string
+@attribute Key_Fold string
 @attribute Key_Scheme string
 @attribute Key_Scheme_options string
 @attribute Key_Scheme_version_ID string

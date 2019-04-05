@@ -114,13 +114,12 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		return BustersAgent.getAction(self, gameState)
 
 	def chooseAction(self, gameState):
-		self.countActions = self.countActions + 0.5
 		return KeyboardAgent.getAction(self, gameState)
 
 	def registerInitialState(self, gameState):
 		BustersAgent.registerInitialState(self, gameState)
 		self.distancer = Distancer(gameState.data.layout, False)
-		self.countActions = -0.5
+		self.countActions = -1
 	
 	##Define variable global lineData que almacenara el estado de la partida del turno actual
 	
@@ -141,6 +140,7 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
 	def printLineData(self, gameState):
 		print "--------------------- Guardando en dataframe el estado de la partida ---------------------"
+		self.countActions = self.countActions + 1
 		if self.countActions >= 0:
 			# Actualizamos los datos del tick
 			pman_tick_data = pd.DataFrame(columns=['tick', 'layout_width', 'layout_height', 'pos_pman', 'legal_actions', 'dir_pman', 'n_ghosts', 'n_alive_ghosts', 'pos_ghosts', 'dir_ghosts', 'dist_ghosts', 'n_food', 'dist_near_food', 'action_pman', 'score', 'score_siguiente'])
@@ -163,10 +163,10 @@ class BustersKeyboardAgent(BustersAgent, KeyboardAgent):
 		print type(gameState.getLegalPacmanActions())
 		legales = '[%s]' % ', '.join(map(str, gameState.getLegalPacmanActions()))
 		print type(legales)
-		print str(gameState.getLegalPacmanActions())
+		# print str(gameState.getLegalPacmanActions())
 		self.pman_tick_data['pos_pman'] = str(gameState.getPacmanPosition())
-		# print '[%s]' % ', '.join(map(str, gameState.getLegalPacmanActions()))
-		self.pman_tick_data['legal_actions'] = gameState.getLegalPacmanActions()		# TODO
+		print '%s' % ', '.join(map(str, gameState.getLegalPacmanActions()))
+		self.pman_tick_data['legal_actions'] = '%s' % ', '.join(map(str, gameState.getLegalPacmanActions()))		# TODO
 		self.pman_tick_data['dir_pman'] = str(gameState.data.agentStates[0].getDirection())
 		self.pman_tick_data['n_ghosts'] = (gameState.getNumAgents() - 1)
 		self.pman_tick_data['n_alive_ghosts'] = str(gameState.getLivingGhosts())

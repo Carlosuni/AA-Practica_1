@@ -12,7 +12,7 @@
 @attribute ghostDistances NUMERIC
 @attribute numFood NUMERIC
 @attribute nearestFood NUMERIC
-@attribute action NUMERIC
+@attribute action {0,1,2,3,4}
 @attribute score NUMERIC
 
 @data
