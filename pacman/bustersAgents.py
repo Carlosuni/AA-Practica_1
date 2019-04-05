@@ -1,3 +1,4 @@
+# coding=utf-8
 # bustersAgents.py
 # ----------------
 # Licensing Information:  You are free to use or extend these projects for
@@ -18,6 +19,7 @@ from game import Directions
 from keyboardAgents import KeyboardAgent
 import inference
 import busters
+from lib.wekaI import Weka
 
 class NullGraphics:
     "Placeholder for graphics"
@@ -66,11 +68,13 @@ class KeyboardInference(inference.InferenceModule):
 class BustersAgent:
     "An agent that tracks and displays its beliefs about ghost positions."
 
-    def __init__( self, index = 0, inference = "ExactInference", ghostAgents = None, observeEnable = True, elapseTimeEnable = True):
+    def __init__(self, index = 0, inference = "ExactInference", ghostAgents = None, observeEnable = True, elapseTimeEnable = True):
         inferenceType = util.lookup(inference, globals())
         self.inferenceModules = [inferenceType(a) for a in ghostAgents]
         self.observeEnable = observeEnable
         self.elapseTimeEnable = elapseTimeEnable
+	self.weka = Weka()
+	self.weka.start_jvm()
 
     def registerInitialState(self, gameState):
         "Initializes beliefs and inference modules"
@@ -289,48 +293,22 @@ class BasicAgentAA(BustersAgent):
 		move = Directions.STOP
 		legal = gameState.getLegalActions(0) ##Legal position from the pacman
 
-		distanciasFantasmas = gameState.data.ghostDistances
-		fantasmasVivos = gameState.getLivingGhosts()
-		fantasmasCerca = 500000
-		for i in range(0,(gameState.getNumAgents() - 1)):
-			if fantasmasVivos[i+1]==True and (distanciasFantasmas[i]<fantasmasCerca):               
-				fantasmasCerca = distanciasFantasmas[i]
-				fantasmaCercano = i
+		# Solicitamos a la clase Weka la prediccion del proximo movimiento
+		x = [str(gameState.data.layout.width),
+			 str(gameState.data.layout.height),
+			 str(gameState.getPacmanPosition()),
+			 str(gameState.getLegalPacmanActions()),
+			 str(gameState.data.agentStates[0].getDirection()),
+			 str(gameState.getNumAgents() - 1),
+			 str(gameState.getLivingGhosts()),
+			 str(gameState.getGhostPositions()),
+			 str([gameState.getGhostDirections().get(i) for i in range(0, gameState.getNumAgents() - 1)]),
+			 str(gameState.data.ghostDistances),
+			 str(gameState.getNumFood()),
+			 str(gameState.getDistanceNearestFood()),
+			 str(BustersAgent.getAction(self, gameState))]
+		move = self.weka.predict("./j48.model", x, "./j48_training_set.arﬀ")
 
-		posicionesFantasmas = gameState.getGhostPositions()
-		posicionFantasmaCercano = posicionesFantasmas[fantasmaCercano]
-		posicionesPacman = gameState.getPacmanPosition()
-		xf = posicionFantasmaCercano[0]
-		yf = posicionFantasmaCercano[1]
-		x = posicionesPacman[0]
-		y = posicionesPacman[1]
-
-		if xf > x and yf > y and xf < yf and Directions.NORTH in legal: move = Directions.NORTH
-		##if xf > x and yf > y and xf < yf and Directions.NORTH not in legal and Directions.EAST in legal: move = Directions.EAST
-		if xf > x and yf >= y and xf > yf and Directions.EAST in legal: move = Directions.EAST
-		##if xf > x and yf >= y and xf > yf and Directions.EAST not in legal and Directions.NORTH in legal: move = Directions.NORTH
-		if xf > x and yf < y and xf < yf and Directions.EAST in legal: move = Directions.EAST
-		##if xf > x and yf < y and xf < yf and Directions.EAST not in legal and Directions.SOUTH in legal: move = Directions.SOUTH
-		if xf > x and yf <= y and xf > yf and Directions.SOUTH in legal: move = Directions.SOUTH
-		##if xf > x and yf <= y and xf > yf and Directions.SOUTH not in legal and Directions.EAST in legal: move = Directions.EAST
-		if xf < x and yf < y and xf < yf and Directions.SOUTH in legal: move = Directions.SOUTH
-		##if xf < x and yf < y and xf < yf and Directions.SOUTH not in legal and Directions.WEST in legal: move = Directions.WEST
-		if xf < x and yf <= y and xf > yf and Directions.WEST in legal: move = Directions.WEST
-		##if xf < x and yf <= y and xf > yf and Directions.WEST not in legal and Directions.SOUTH in legal: move = Directions.SOUTH
-		if xf < x and yf > y and xf < yf and Directions.WEST in legal: move = Directions.WEST
-		##if xf < x and yf > y and xf < yf and Directions.WEST not in legal and Directions.NORTH in legal: move = Directions.NORTH
-		if xf < x and yf >= y and xf > yf and Directions.NORTH in legal: move = Directions.NORTH
-		##if xf < x and yf >= y and xf > yf and Directions.NORTH not in legal and Directions.WEST in legal: move = Directions.WEST
-		if xf == yf and xf > x and Directions.EAST in legal: move = Directions.EAST
-		if xf == yf and xf < x and Directions.WEST in legal: move = Directions.WEST
-		#caso tunel
-		if Directions.NORTH not in legal or Directions.EAST in legal or Directions.SOUTH in legal or Directions.WEST in legal:
-			move_random = random.randint(0, 3)
-			if(move_random == 0) and Directions.WEST in legal: move = Directions.WEST
-			if(move_random == 1) and Directions.EAST in legal: move = Directions.EAST
-			if(move_random == 2) and Directions.NORTH in legal: move = Directions.NORTH
-			if(move_random == 3) and Directions.SOUTH in legal: move = Directions.SOUTH
-			
 		return move
 
 	lineDataAA = ""
@@ -351,3 +329,4 @@ class BasicAgentAA(BustersAgent):
 			str(gameState.data.ghostDistances) + ";" + str(gameState.getNumFood()) + ";" +\
 			str(gameState.getDistanceNearestFood()) + ";" + str(BustersAgent.getAction(self, gameState)) + ";"
 		return self.lineDataAA
+

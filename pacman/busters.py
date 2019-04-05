@@ -1,3 +1,4 @@
+# coding=utf-8
 # busters.py
 # ----------
 # Licensing Information:  You are free to use or extend these projects for

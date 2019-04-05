@@ -143,3 +143,46 @@
 20;16;(12, 13);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, False, True, False, False];[(1, 1), (10, 11), (5, 1), (7, 1)];['Stop', 'South', 'Stop', 'Stop'];[None, 4, None, None];1;10;South;555
 20;16;(12, 12);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, False, True, False, False];[(1, 1), (10, 10), (5, 1), (7, 1)];['Stop', 'South', 'Stop', 'Stop'];[None, 4, None, None];1;9;South;554
 20;16;(12, 11);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, False, True, False, False];[(1, 1), (10, 11), (5, 1), (7, 1)];['Stop', 'North', 'Stop', 'Stop'];[None, 2, None, None];1;8;South;553
+-1
+20;16;(12, 10);['West', 'Stop', 'East', 'North', 'South'];Stop;4;[False, True, True, True, True];[(5, 6), (5, 12), (13, 6), (13, 12)];['Stop', 'Stop', 'Stop', 'Stop'];[11, 9, 5, 3];1;7;Stop;-2
+20;16;(12, 10);['West', 'Stop', 'East', 'North', 'South'];Stop;4;[False, True, True, True, True];[(5, 5), (5, 11), (14, 6), (12, 12)];['South', 'South', 'East', 'West'];[12, 8, 6, 2];1;7;Stop;-3
+20;16;(12, 11);['West', 'Stop', 'East', 'North', 'South'];North;4;[False, True, True, True, True];[(5, 4), (5, 11), (13, 6), (12, 12)];['South', 'South', 'West', 'West'];[14, 7, 6, 1];1;8;North;-4
+20;16;(12, 12);['West', 'Stop', 'East', 'North', 'South'];North;4;[False, True, True, True, True];[(5, 5), (5, 12), (13, 5), (13, 12)];['North', 'North', 'South', 'East'];[14, 7, 8, 1];1;9;North;-5
+20;16;(11, 12);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, True, True];[(5, 4), (6, 12), (13, 6), (13, 13)];['South', 'East', 'North', 'North'];[14, 5, 8, 3];1;10;West;-6
+20;16;(10, 12);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, True, True];[(4, 4), (7, 12), (13, 6), (12, 13)];['West', 'East', 'North', 'West'];[14, 3, 9, 3];1;11;West;-7
+20;16;(9, 12);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, True, True];[(5, 4), (7, 12), (14, 6), (11, 13)];['East', 'East', 'East', 'West'];[12, 2, 11, 3];1;12;West;-8
+20;16;(8, 12);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, True, True];[(5, 4), (7, 11), (13, 6), (10, 13)];['East', 'South', 'West', 'West'];[11, 2, 11, 3];1;13;West;-9
+20;16;(7, 12);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, True, True];[(6, 4), (7, 11), (13, 7), (10, 14)];['East', 'South', 'North', 'North'];[9, 1, 11, 5];1;14;West;-10
+20;16;(7, 13);['West', 'Stop', 'East', 'North', 'South'];North;4;[False, True, True, True, True];[(7, 4), (8, 11), (13, 8), (9, 14)];['East', 'East', 'North', 'West'];[9, 3, 11, 3];1;15;North;-11
+20;16;(8, 13);['West', 'Stop', 'East', 'North', 'South'];East;4;[False, True, True, True, True];[(6, 4), (7, 11), (13, 9), (10, 14)];['West', 'West', 'North', 'East'];[11, 3, 9, 3];1;14;East;-12
+20;16;(9, 13);['West', 'Stop', 'East', 'North', 'South'];East;4;[False, True, True, True, True];[(6, 4), (7, 12), (13, 10), (10, 13)];['West', 'North', 'North', 'South'];[12, 3, 7, 1];1;13;East;-13
+20;16;(10, 13);['West', 'Stop', 'East', 'North', 'South'];East;4;[False, True, True, True, True];[(6, 4), (7, 12), (12, 10), (10, 12)];['West', 'North', 'West', 'South'];[13, 4, 5, 1];1;12;East;-14
+20;16;(10, 12);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, True, True, True];[(5, 4), (6, 12), (12, 9), (9, 12)];['West', 'West', 'South', 'West'];[13, 4, 5, 1];1;11;South;185
+20;16;(10, 11);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, True, True, False];[(5, 3), (6, 13), (11, 9), (7, 1)];['South', 'North', 'West', 'Stop'];[13, 6, 3, None];1;10;South;184
+20;16;(10, 10);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, True, True, False];[(5, 3), (6, 14), (11, 9), (7, 1)];['South', 'North', 'West', 'Stop'];[12, 8, 2, None];1;9;South;183
+20;16;(10, 9);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, True, True, False];[(5, 4), (7, 14), (12, 9), (7, 1)];['North', 'East', 'East', 'Stop'];[10, 8, 2, None];1;8;South;182
+20;16;(11, 9);['West', 'Stop', 'East', 'North', 'South'];East;4;[False, True, True, True, False];[(4, 4), (6, 14), (12, 8), (7, 1)];['West', 'West', 'South', 'Stop'];[12, 10, 2, None];1;7;East;181
+20;16;(12, 9);['West', 'Stop', 'East', 'North', 'South'];East;4;[False, True, True, True, False];[(4, 3), (6, 13), (11, 8), (7, 1)];['South', 'South', 'West', 'Stop'];[14, 10, 2, None];1;6;East;180
+20;16;(12, 8);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, True, True, False];[(4, 3), (6, 14), (11, 8), (7, 1)];['South', 'North', 'West', 'Stop'];[13, 12, 1, None];1;7;South;379
+20;16;(11, 8);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, False, False];[(5, 3), (5, 14), (11, 8), (7, 1)];['East', 'West', 'Stop', 'Stop'];[11, 12, None, None];1;8;West;378
+20;16;(10, 8);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, False, False];[(6, 3), (5, 13), (5, 1), (7, 1)];['East', 'South', 'Stop', 'Stop'];[9, 10, None, None];1;9;West;377
+20;16;(9, 8);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, False, False];[(5, 3), (5, 12), (5, 1), (7, 1)];['West', 'South', 'Stop', 'Stop'];[9, 8, None, None];1;10;West;376
+20;16;(8, 8);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, False, False];[(5, 3), (4, 12), (5, 1), (7, 1)];['West', 'West', 'Stop', 'Stop'];[8, 8, None, None];1;11;West;375
+20;16;(8, 9);['West', 'Stop', 'East', 'North', 'South'];North;4;[False, True, True, False, False];[(6, 3), (5, 12), (5, 1), (7, 1)];['East', 'East', 'Stop', 'Stop'];[8, 6, None, None];1;10;North;374
+20;16;(8, 10);['West', 'Stop', 'East', 'North', 'South'];North;4;[False, True, True, False, False];[(6, 4), (4, 12), (5, 1), (7, 1)];['North', 'West', 'Stop', 'Stop'];[8, 6, None, None];1;11;North;373
+20;16;(8, 11);['West', 'Stop', 'East', 'North', 'South'];North;4;[False, True, True, False, False];[(7, 4), (5, 12), (5, 1), (7, 1)];['East', 'East', 'Stop', 'Stop'];[8, 4, None, None];1;12;North;372
+20;16;(7, 11);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, False, False];[(8, 4), (6, 12), (5, 1), (7, 1)];['East', 'East', 'Stop', 'Stop'];[8, 2, None, None];1;13;West;371
+20;16;(6, 11);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, True, False, False];[(8, 4), (5, 12), (5, 1), (7, 1)];['East', 'West', 'Stop', 'Stop'];[9, 2, None, None];1;14;West;370
+20;16;(6, 12);['West', 'Stop', 'East', 'North', 'South'];North;4;[False, True, True, False, False];[(8, 5), (4, 12), (5, 1), (7, 1)];['North', 'West', 'Stop', 'Stop'];[9, 2, None, None];1;15;West;569
+20;16;(5, 12);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, False, False, False];[(9, 5), (5, 12), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[11, None, None, None];1;16;West;568
+20;16;(4, 12);['West', 'Stop', 'East', 'North', 'South'];West;4;[False, True, False, False, False];[(10, 5), (3, 1), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[13, None, None, None];1;17;West;567
+20;16;(4, 11);['West', 'Stop', 'East', 'North'];South;4;[False, True, False, False, False];[(9, 5), (3, 1), (5, 1), (7, 1)];['West', 'Stop', 'Stop', 'Stop'];[11, None, None, None];1;16;Stop;566
+20;16;(5, 11);['West', 'Stop', 'East', 'North'];East;4;[False, True, False, False, False];[(10, 5), (3, 1), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[11, None, None, None];1;15;East;565
+20;16;(6, 11);['West', 'Stop', 'East', 'North', 'South'];East;4;[False, True, False, False, False];[(11, 5), (3, 1), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[11, None, None, None];1;14;East;564
+20;16;(6, 10);['Stop', 'East', 'North', 'South'];South;4;[False, True, False, False, False];[(12, 5), (3, 1), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[11, None, None, None];1;13;South;563
+20;16;(6, 9);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, False, False, False];[(12, 5), (3, 1), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[10, None, None, None];1;12;South;562
+20;16;(6, 8);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, False, False, False];[(13, 5), (3, 1), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[10, None, None, None];1;13;South;561
+20;16;(6, 7);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, False, False, False];[(12, 5), (3, 1), (5, 1), (7, 1)];['West', 'Stop', 'Stop', 'Stop'];[8, None, None, None];1;14;South;560
+20;16;(6, 6);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, False, False, False];[(13, 5), (3, 1), (5, 1), (7, 1)];['East', 'Stop', 'Stop', 'Stop'];[8, None, None, None];1;15;South;559
+20;16;(6, 5);['West', 'Stop', 'East', 'North', 'South'];South;4;[False, True, False, False, False];[(12, 5), (3, 1), (5, 1), (7, 1)];['West', 'Stop', 'Stop', 'Stop'];[6, None, None, None];1;16;South;558
+20;16;(7, 5);['West', 'Stop', 'East', 'North', 'S
