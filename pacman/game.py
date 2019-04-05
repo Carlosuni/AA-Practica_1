@@ -614,9 +614,7 @@ class Game:
 
         # Apertura inicial del archivo para ir guardando los estados
         f = open("pac-man_gameState.arff", "a+")
-        pman_data = pd.DataFrame(columns=['tick', 'layout_width', 'layout_height', 'pos_pman', 'legal_actions', 'dir_pman',
-                                        'n_ghosts', 'n_alive_ghosts', 'pos_ghosts', 'dir_ghosts', 'dist_ghosts',
-                                        'n_food', 'dist_near_food', 'action_pman', 'score', 'score_siguiente'])
+        pman_data = pd.DataFrame(columns=['tick', 'layout_width', 'layout_height', 'pos_pman', 'legal_actions', 'dir_pman', 'n_ghosts', 'n_alive_ghosts', 'pos_ghosts', 'dir_ghosts', 'dist_ghosts', 'n_food', 'dist_near_food', 'action_pman', 'score', 'score_siguiente'])
         # f.write("map_width,map_height,pman_pos,legal_actions,pman_dir,n_ghosts,living_ghosts,ghostos_pos,ghost_dirs,ghost_dists,pac_dots,dist_near_dot,score\n")
 
 
@@ -721,7 +719,7 @@ class Game:
             # ------------------
             # PrintLineData del la info que almacenamos del estado de la partida
             if agent == self.agents[0]:
-                pman_data = self.agents[0].printLineData(self.state.deepCopy(), pman_data)
+                pman_data = self.agents[0].printLineData(self.state.deepCopy())
 
             # Change the display
             self.display.update( self.state.data )
