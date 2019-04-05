@@ -18,6 +18,8 @@ from game import Directions
 from keyboardAgents import KeyboardAgent
 import inference
 import busters
+from lib.wekaI import Weka
+import numpy as np
 
 class NullGraphics:
     "Placeholder for graphics"
@@ -71,6 +73,8 @@ class BustersAgent:
         self.inferenceModules = [inferenceType(a) for a in ghostAgents]
         self.observeEnable = observeEnable
         self.elapseTimeEnable = elapseTimeEnable
+        self.weka = Weka()
+        # self.weka.start_jvm()
 
     def registerInitialState(self, gameState):
         "Initializes beliefs and inference modules"
@@ -277,6 +281,11 @@ class GreedyBustersAgent(BustersAgent):
         return Directions.EAST
 
 class BasicAgentAA(BustersAgent):
+	countActions = 0
+	##global lineDataBusters
+	lineDataBusters = ""
+	dir_actual = ""
+	added_line = ""
 
 	def registerInitialState(self, gameState):
 		BustersAgent.registerInitialState(self, gameState)
@@ -333,55 +342,26 @@ class BasicAgentAA(BustersAgent):
          # Puntuacion
 		print "Score: ", gameState.getScore()
 
-	countActions = 0
-
 	def chooseAction(self, gameState):
 		self.countActions = self.countActions + 1
 		self.printInfo(gameState)
 		move = Directions.STOP
-		legal = gameState.getLegalActions(0) ##Legal position from the pacman
-
-		distanciasFantasmas = gameState.data.ghostDistances
-		fantasmasVivos = gameState.getLivingGhosts()
-		fantasmasCerca = 500000
-		for i in range(0,(gameState.getNumAgents() - 1)):
-			if fantasmasVivos[i+1]==True and (distanciasFantasmas[i]<fantasmasCerca):               
-				fantasmasCerca = distanciasFantasmas[i]
-				fantasmaCercano = i
-
-		posicionesFantasmas = gameState.getGhostPositions()
-		posicionFantasmaCercano = posicionesFantasmas[fantasmaCercano]
-		posicionesPacman = gameState.getPacmanPosition()
-		xf = posicionFantasmaCercano[0]
-		yf = posicionFantasmaCercano[1]
-		x = posicionesPacman[0]
-		y = posicionesPacman[1]
-
-		if xf > x and yf > y and xf < yf and Directions.NORTH in legal: move = Directions.NORTH
-		##if xf > x and yf > y and xf < yf and Directions.NORTH not in legal and Directions.EAST in legal: move = Directions.EAST
-		if xf > x and yf >= y and xf > yf and Directions.EAST in legal: move = Directions.EAST
-		##if xf > x and yf >= y and xf > yf and Directions.EAST not in legal and Directions.NORTH in legal: move = Directions.NORTH
-		if xf > x and yf < y and xf < yf and Directions.EAST in legal: move = Directions.EAST
-		##if xf > x and yf < y and xf < yf and Directions.EAST not in legal and Directions.SOUTH in legal: move = Directions.SOUTH
-		if xf > x and yf <= y and xf > yf and Directions.SOUTH in legal: move = Directions.SOUTH
-		##if xf > x and yf <= y and xf > yf and Directions.SOUTH not in legal and Directions.EAST in legal: move = Directions.EAST
-		if xf < x and yf < y and xf < yf and Directions.SOUTH in legal: move = Directions.SOUTH
-		##if xf < x and yf < y and xf < yf and Directions.SOUTH not in legal and Directions.WEST in legal: move = Directions.WEST
-		if xf < x and yf <= y and xf > yf and Directions.WEST in legal: move = Directions.WEST
-		##if xf < x and yf <= y and xf > yf and Directions.WEST not in legal and Directions.SOUTH in legal: move = Directions.SOUTH
-		if xf < x and yf > y and xf < yf and Directions.WEST in legal: move = Directions.WEST
-		##if xf < x and yf > y and xf < yf and Directions.WEST not in legal and Directions.NORTH in legal: move = Directions.NORTH
-		if xf < x and yf >= y and xf > yf and Directions.NORTH in legal: move = Directions.NORTH
-		##if xf < x and yf >= y and xf > yf and Directions.NORTH not in legal and Directions.WEST in legal: move = Directions.WEST
-		if xf == yf and xf > x and Directions.EAST in legal: move = Directions.EAST
-		if xf == yf and xf < x and Directions.WEST in legal: move = Directions.WEST
-		#caso tunel
-		if Directions.NORTH not in legal or Directions.EAST in legal or Directions.SOUTH in legal or Directions.WEST in legal:
-			move_random = random.randint(0, 3)
-			if(move_random == 0) and Directions.WEST in legal: move = Directions.WEST
-			if(move_random == 1) and Directions.EAST in legal: move = Directions.EAST
-			if(move_random == 2) and Directions.NORTH in legal: move = Directions.NORTH
-			if(move_random == 3) and Directions.SOUTH in legal: move = Directions.SOUTH
+		if self.countActions > 4:
+			# Solicitamos a la clase Weka la prediccion del proximo movimiento
+			# print "Imprimiendo linea de referencia"
+			# print self.added_line
+			x_list = self.added_line.split(',')
+			x = []
+			for element in x_list:
+				x.append(str(element))
+			# x = np.asarray(x_list)
+			print "Tipo de objeto pasado al predict = " + str(type(x))
+			print "Array de linea introducida"
+			print x
+			prediccion = self.weka.predict("./input/models/model_J48_trainkey.model", x, "./input/arff/train_keyb_pac-man_gameState.arff")
+			# print "Tipo de  prediccion = " + str(type(prediccion))
+			# print prediccion
+			# move = self.weka.predict("./input/models/model_J48_trainkey.model", x, "./input/arff/train_keyb_pac-man_gameState.arff")
 			
 		return move
 
@@ -392,17 +372,14 @@ class BasicAgentAA(BustersAgent):
 
 	##Define variable global lineData que almacenara el estado de la partida del turno actual
 
-	##global lineDataBusters
-	lineDataBusters = ""
-	dir_actual = ""
 
 	##Imprime el valor de variable lineData (que contiene los valores del turno anterior) con el score del turno actual
 	def printLineData(self, gameState, f):
 		self.countActions = self.countActions + 1
 		print "--------------------- Guardando en .csv el estado de la partida ---------------------"
 		if self.countActions > 2:
-			added_line = self.lineDataBusters + str(self.dir_actual) + "," + str(gameState.getScore()) + "\n"
-			f.write(added_line)
+			self.added_line = self.lineDataBusters + str(self.dir_actual) + "," + str(gameState.getScore())
+			f.write(str(self.added_line) + "\n")
 		BasicAgentAA.actData(self, gameState)
 
 	##Actualiza la variable lineData con los datos del turno actual

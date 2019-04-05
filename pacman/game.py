@@ -23,6 +23,7 @@ from util import *
 import time, os
 import traceback
 import sys
+from lib.wekaI import Weka
 
 #######################
 # Parts worth reading #
@@ -37,6 +38,8 @@ class Agent:
     """
     def __init__(self, index=0):
         self.index = index
+        self.weka = Weka()
+        self.weka.start_jvm()
 
     def getAction(self, state):
         """
@@ -787,7 +790,7 @@ class Game:
                 boinc.set_fraction_done(self.getProgress())
 
         f.close()
-
+        jvm.stop()
 
         # inform a learning agent of the game result
         for agentIndex, agent in enumerate(self.agents):
@@ -802,3 +805,4 @@ class Game:
                     self.unmute()
                     return
         self.display.finish()
+
